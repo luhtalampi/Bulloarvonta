@@ -1,3 +1,14 @@
+<!--
+Tämä tiedosto on "Planning Bulloarvonta" -arvontasovellus.
+- Kirjoita nimet vasemmalla olevaan tekstikenttään
+- Klikkaa "Siirrä pulloon" → nimet näkyvät pullon "etiketissä"
+- Klikkaa "Aloita arvonta" → arvonta käynnistyy ja nimet tippuvat yksi kerrallaan pois
+- Voittaja lisätään Hall of Fame -listaan
+- Bulloarvonta on vielä "kehitysvaiheessa", eikä välttämättä skaalaudu kaikille näytöille oikein
+
+Tekijä: Niklas Luhtalampi 
+Päiväys: 11.8.2025
+-->
 <!DOCTYPE html>
 <html lang="fi">
 <head>
@@ -64,7 +75,7 @@
       position: relative;
       width: 400px;
       height: 1000px;
-      background-image: url('https://i.imgur.com/BE7jpgZ.png');
+      background-image: url('https://i.imgur.com/BE7jpgZ.png'); /* <-- linkki pullon kuvaan */
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center bottom;
@@ -82,12 +93,12 @@
   left: 50%;
   transform: translateX(-50%);
   width: 160px; /* <-- muuta tätä arvoa etiketin leventämiseen/kaventamiseen */
-  height: 110px;
+  height: 110px; /* <-- muuta tätä arvoa etiketin korkuuden säätämiseen */
   background: transparent;
   padding: 10px 15px;
   font-size: 0.85em;
   font-weight: 600;
-  color: #a67c00;
+  color: #a67c00; /* <-- fontin väri */
   overflow-wrap: break-word;
   white-space: normal;
   text-align: center;
@@ -242,12 +253,12 @@ function startDraw() {
 
   const interval = setInterval(() => {
     if (names.length === 3) {
-      // Kolmanneksi viimeinen tippuu pois, joten ensin poista nimi:
+      /* Kolmanneksi viimeinen nimi tippuu pois, joten ensin poista nimi: */
       const indexToRemove = Math.floor(Math.random() * names.length);
       names.splice(indexToRemove, 1);
       renderNames();
 
-      // 1,5 sekunnin viive, sitten näytetään "Finaali alkaa!"
+      /* 1,5 sekunnin viive, sitten näytetään "Finaali alkaa!" */
       setTimeout(() => {
         const finalMsg = document.createElement('div');
         finalMsg.textContent = "🏆 Finaali alkaa!";
@@ -264,26 +275,26 @@ function startDraw() {
         finalMsg.style.zIndex = '9999';
         document.body.appendChild(finalMsg);
 
-        // Näytetään finaaliteksti 2,5 sekuntia
+        /* Näytetään finaaliteksti 2,5 sekuntia */
         setTimeout(() => {
           finalMsg.remove();
 
-          // Odotetaan vielä 2,5 sekuntia ennen voittajan selviämistä
+          /* Odotetaan vielä 2,5 sekuntia ennen voittajan selviämistä */
           setTimeout(() => {
             if (names.length === 2) {
-              // Poistetaan satunnainen häviäjä viimeisen karsinnan jälkeen
+              /* Poistetaan satunnainen häviäjä viimeisen karsinnan jälkeen */
               const loserIndex = Math.floor(Math.random() * names.length);
               names.splice(loserIndex, 1);
               renderNames();
 
-              // Näytetään voittaja
+              /* Näytetään voittaja */
               const winner = names[0];
               showWinner(winner);
             }
-          }, 2500);
+          }, 2500); /* 3. viiveen säätö millisekunneissa ennen voittajan julkistamista */
 
-        }, 2500);
-      }, 1500);
+        }, 2500); /* 2. viiveen säätö millisekunneissa ennen viimeistä arvontaa */ 
+      }, 1500); /* 1. viiveen säätö millisekunneissa ennen kuin "Finaali alkaa" teksti ilmestyy */
 
       clearInterval(interval);
       return;
@@ -295,11 +306,11 @@ function startDraw() {
       return;
     }
     
-    // Poistetaan satunnainen nimi normaalisti
+    /* Poistetaan satunnainen nimi normaalisti */
     const index = Math.floor(Math.random() * names.length);
     names.splice(index, 1);
     renderNames();
-  }, 3000);
+  }, 3000); /* nimien poistoajan säätö millisekunneissa ennen finaalia */
 }
 
 function showWinner(name) {
@@ -370,6 +381,7 @@ loadHallOfFame();
 
 
  
+
 
 
 
